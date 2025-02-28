@@ -1,3 +1,7 @@
+Run time:
+Time complexity:
+Space complexity: 
+
 public class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode fast=head;
@@ -15,3 +19,6 @@ public class Solution {
         return false;
     }
 }
+
+
+Steps: 

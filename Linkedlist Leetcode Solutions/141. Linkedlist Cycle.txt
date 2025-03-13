@@ -1,6 +1,6 @@
-Run time:
-Time complexity:
-Space complexity: 
+Run time: 0ms
+Time complexity: O(N)
+Space complexity: O(1) 
 
 public class Solution {
     public boolean hasCycle(ListNode head) {

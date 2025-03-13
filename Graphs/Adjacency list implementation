@@ -1,0 +1,48 @@
+/*
+first line of input consists of number of vertex and number of edges respectively
+next lines of inputs represents edge values
+**i/p:**
+4 5
+0 1
+0 2
+1 2
+1 3
+2 3
+**o/p:**
+Vertex 0: 1 2
+Vertex 1: 0 2 3
+Vertex 2: 0 1 3
+Vertex 3: 1 2
+*/
+
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Create{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        int e = sc.nextInt();
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+
+        for(int i=0;i<v;i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int i=0;i<e;i++){
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+            graph.get(s).add(d);
+            graph.get(d).add(s);
+        }
+        sc.close();
+
+        for(int i=0;i<v;i++){
+            System.out.print("Vertex "+i+": ");
+            for(int j=0;j<graph.get(i).size();j++){
+                System.out.print(graph.get(i).get(j)+" ");
+            }
+            System.out.println();
+        }
+    }
+}

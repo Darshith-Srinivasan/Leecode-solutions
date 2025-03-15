@@ -1,0 +1,83 @@
+# Using Adjacency list
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class dfs {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        int e = sc.nextInt();
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+
+        for(int i=0;i<v;i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int i=0;i<e;i++){
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+            graph.get(s).add(d);
+            graph.get(d).add(s);
+        }
+        sc.close();
+        boolean[] vis = new boolean[v];
+        for(int i=0;i<v;i++){
+            if(!vis[i]){
+                dfs(graph,i,vis,v);
+            }
+        }
+    }
+
+    public static void dfs(ArrayList<ArrayList<Integer>> graph, int vertex, boolean[] vis, int v){
+        System.out.print(vertex+" ");
+        vis[vertex] = true;
+        for(int i=0;i<graph.get(vertex).size();i++){
+            
+            if(!vis[graph.get(vertex).get(i)]){
+                dfs(graph,graph.get(vertex).get(i),vis,v);
+            }
+        }
+    }
+}
+
+
+
+
+#Using Adjacency matirx
+
+import java.util.Scanner;
+
+public class dfs2 {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        int e = sc.nextInt();
+
+        int[][] graph = new int[v][v];
+
+        for(int i=0;i<e;i++){
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+            graph[s][d] = 1;
+            graph[d][s] = 1;
+        }
+        sc.close();
+        boolean[] vis = new boolean[v];
+        for(int i=0;i<v;i++){
+            if(!vis[i]){
+                dfs(graph,vis,i,v);
+            }
+        }
+        
+    }
+
+    public static void dfs(int[][] graph, boolean[] vis, int vertex, int n){
+       System.out.print(vertex+" ");
+       vis[vertex] = true;
+       for(int i=0;i<n;i++){
+        if(graph[vertex][i]==1 && !vis[graph[vertex][i]]){
+            dfs(graph,vis,graph[vertex][i],n);
+        }
+       }
+    }
+}

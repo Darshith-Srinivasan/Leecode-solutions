@@ -1,0 +1,22 @@
+Run-time: 3ms
+Time complexity: O(N)
+Space complexity: O(N)
+
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] trustcount = new int[n+1];
+        int e = trust.length;
+        for(int i=0;i<e;i++){
+            int s = trust[i][0];
+            int d = trust[i][1];
+            trustcount[s]--;
+            trustcount[d]++;
+        }
+
+        for(int i=1;i<n+1;i++){
+            if(trustcount[i]==n-1) return i;
+        }
+        return -1;
+    }
+}

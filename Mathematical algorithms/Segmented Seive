@@ -1,0 +1,80 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class seg {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> primes = new ArrayList<>();
+        int l = sc.nextInt();
+        int h = sc.nextInt();
+        
+        // Calculate primes up to sqrt(h) using the normal sieve
+        int n = (int)Math.sqrt(h);
+        sieve(primes, n);
+        
+        // Output all primes up to sqrt(h)
+        for (int i = 0; i < primes.size(); i++) {
+            System.out.print(primes.get(i) + " ");
+        }
+        System.out.println();
+
+        // Now use the segmented sieve method to find primes in range [l, h]
+        segmentedSieve(primes, l, h);
+    }
+
+    // Function to perform the normal Sieve of Eratosthenes up to n
+    public static void sieve(ArrayList<Integer> primes, int n) {
+        boolean[] isPrime = new boolean[n + 1];
+        for (int i = 2; i <= n; i++) {
+            isPrime[i] = true;
+        }
+
+        for (int i = 2; i * i <= n; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j <= n; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                primes.add(i);
+            }
+        }
+    }
+
+    // Function to perform the segmented sieve for range [l, h]
+    public static void segmentedSieve(ArrayList<Integer> primes, int l, int h) {
+        int m = h - l + 1;
+        boolean[] isPrimeInRange = new boolean[m];
+        
+        // Initialize all numbers in the range [l, h] as prime
+        for (int i = 0; i < m; i++) {
+            isPrimeInRange[i] = true;
+        }
+        
+        // For each prime, mark its multiples in the range [l, h] as non-prime
+        for (int prime : primes) {
+            // Find the first multiple of prime in the range [l, h]
+            int start = Math.max(prime * prime, (l + prime - 1) / prime * prime);
+
+            // Mark all multiples of prime as non-prime in the range
+            for (int j = start; j <= h; j += prime) {
+                isPrimeInRange[j - l] = false;
+            }
+        }
+
+        // Handle special case when l is 1 (since 1 is not a prime number)
+        if (l == 1) {
+            isPrimeInRange[0] = false;
+        }
+
+        // Print the primes in the range [l, h]
+        for (int i = 0; i < m; i++) {
+            if (isPrimeInRange[i]) {
+                System.out.print((l + i) + " ");
+            }
+        }
+    }
+}

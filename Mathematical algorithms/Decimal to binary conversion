@@ -1,0 +1,18 @@
+import java.util.*;
+
+public class Main {
+    static int res = 0;
+    public static void dtb(int n){
+      if(n==0)return;
+      else{
+        dtb(n/2);
+        res = res*10+(n%2);
+      }
+    }
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      int n = sc.nextInt();
+      dtb(n);
+      System.out.print(res);
+  }
+}

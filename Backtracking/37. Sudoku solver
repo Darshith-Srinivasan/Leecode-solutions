@@ -1,0 +1,53 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        backtrack(board);
+    }
+    public boolean backtrack(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.'){
+                    //Exploration state
+                    for(char num='1';num<='9';num++){
+                        if(isvalid(num,board,i,j)){
+                            //Action
+                            board[i][j] = num;
+                            //Recursive call
+                            if(backtrack(board)==true) return true;//if number is placed properly
+                            //Undo
+                            board[i][j] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;// if all boxes are filled
+    }
+    public boolean isvalid(char num, char[][] board,int i, int j){
+        // //for checking entire row
+        // for(col=0;col<9;col++){
+        //     if(board[i][col]==num) return false;
+        // }
+        // //for checking entire column
+        // for(row=0;row<9;row++){
+        //     if(board[row][j]==num) return false;
+        // } OR
+
+        // for checking entire row and col
+        for(int index = 0;index<9;index++){
+            if(board[i][index]==num || board[index][j]==num){
+                return false;
+            }
+        }
+
+        //for checking a 3X3 cell
+        int boxr = (i%3);
+        int boxy = (j%3);
+        for(int row=0;row<3;row++){
+            for(int col=0;col<3;col++){
+                if(board[boxr+row][boxy+col]==num)return false;
+            }
+        }
+        return true;
+    }
+}

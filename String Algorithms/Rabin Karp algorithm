@@ -1,0 +1,50 @@
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String haystack = "abaab";
+        String needle = "aa";
+        System.out.println("Output 4: " + sol.strStr(haystack4, needle4)); // Expected: 3
+    }
+}
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if (needle.isEmpty()) return 0;
+        if (needle.length() > haystack.length()) return -1;
+
+        int base = 10;
+
+        int n = haystack.length();
+        int m = needle.length();
+
+        long hashNeedle = 0, hashWindow = 0;
+        long power = 1;
+
+  
+        for (int i = 0; i < m - 1; i++) {
+            power = (power * base) ;
+        }
+
+  
+        for (int i = 0; i < m; i++) {
+            hashNeedle = (hashNeedle * base + (needle.charAt(i)-'a'+1));
+            hashWindow = (hashWindow * base + (haystack.charAt(i)-'a'+1));
+        }
+
+
+        for (int i = 0; i <= n - m; i++) {
+            if (hashNeedle == hashWindow) {
+                    return i;
+            }
+
+           
+            if (i < n - m) {
+                hashWindow = (hashWindow - (haystack.charAt(i)-'a'+1) * power);
+                hashWindow = (hashWindow * base + (haystack.charAt(i + m)-'a'+1)) ;
+            }
+        }
+
+        return -1;
+    }
+}
